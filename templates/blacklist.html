@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>黑名單管理</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<h1>黑名單管理</h1>
+
+{% if message %}
+<p style="color: green;">{{ message }}</p>
+{% endif %}
+
+<form method="post">
+    <label for="username">要加入黑名單的用戶名:</label>
+    <input type="text" name="username" required>
+    <input type="submit" value="加入黑名單">
+</form>
+
+<h2>目前黑名單</h2>
+<table>
+    <tr>
+        <th>用戶名</th>
+        <th>操作</th>
+    </tr>
+    {% for username in blacklist %}
+    <tr>
+        <td>{{ username }}</td>
+        <td>
+            <form action="/admin/unblacklist/{{ username }}" method="post" style="display:inline;">
+                <input type="submit" value="解凍結">
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="/admin">返回管理介面</a>
+
+</body>
+</html>

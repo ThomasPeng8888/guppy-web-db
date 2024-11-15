@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>排行榜</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        .rank-highlight {
+            font-weight: bold;
+            font-size: 1.2em; /* 增加字體大小 */
+            color: #FF5733; /* 使用醒目的顏色 */
+        }
+        tr:nth-child(even) {background-color: #f2f2f2;} /* 隔行變色 */
+        tr:hover {background-color: #ddd;} /* 滑鼠懸停效果 */
+    </style>
+</head>
+<body>
+
+<h1>排行榜</h1>
+
+<table>
+    <tr>
+        <th>名次</th>
+        <th>用戶名</th>
+        <th>LINE社群暱稱</th>
+        <th>總點數</th>
+    </tr>
+    {% for rank, username, line_nickname, points in leaderboard %}
+    <tr>
+        <td class="rank-highlight">{{ rank }}</td> <!-- 突出顯示名次 -->
+        <td>{{ username }}</td>
+        <td>{{ line_nickname }}</td>
+        <td>{{ points }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="/">返回首頁</a>
+
+</body>
+</html>

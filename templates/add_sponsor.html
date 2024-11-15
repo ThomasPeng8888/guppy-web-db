@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增贊助者</title>
+</head>
+<body>
+
+<h1>新增贊助者</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <label for="name">贊助者姓名:</label>
+    <input type="text" name="name" required><br>
+
+    <label for="fb_link">FB連結:</label>
+    <input type="url" name="fb_link" required><br>
+
+    <label for="photo">贊助者圖片:</label>
+    <input type="file" name="photo" accept="image/*"><br>
+
+    <input type="submit" value="新增贊助者">
+</form>
+
+<a href="/admin">返回管理介面</a>
+
+</body>
+</html>

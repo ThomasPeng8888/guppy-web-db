@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品列表</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
+        h2 { color: #333; }
+        .product-list { display: flex; flex-wrap: wrap; justify-content: space-between; }
+        .product-card { background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin: 15px; padding: 15px; width: calc(30% - 30px); text-align: center; }
+        .product-card img { width: 100%; height: auto; max-height: 200px; border-radius: 5px; }
+        .btn-edit { display: inline-block; padding: 10px 15px; background-color: #007BFF; color: white; border-radius: 5px; text-decoration: none; }
+        .btn-edit:hover { background-color: #0056b3; }
+        .out-of-stock { color: red; font-weight: bold; } /* 庫存不足的樣式 */
+    </style>
+</head>
+<body>
+
+<h2>商品列表</h2>
+<div class="product-list">
+    {% for id, product in products.items() %}
+    <div class="product-card">
+        <img src="{{ url_for('static', filename='photos/' + (product.image if 'image' in product else 'default.jpg')) }}" alt="{{ product.name }}">
+        <div class="product-info">
+            <h3>{{ product.name }}</h3>
+            <p>點數：{{ product.price | int }}</p> <!-- 使用 |int 過濾器 -->
+            <p>贊助者：{{ product.sponsor if 'sponsor' in product else '無' }}</p> <!-- 顯示贊助者 -->
+            <p>庫存：{{ product.stock }} 件</p> <!-- 顯示庫存數量 -->
+            {% if product.stock <= 0 %}
+                <p class="out-of-stock">此商品已售罄</p> <!-- 庫存為0時的提示 -->
+            {% endif %}
+            <a href="{{ url_for('edit_product', product_id=id) }}" class="btn-edit">編輯</a> <!-- 編輯按鈕 -->
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<a href="/admin">返回管理介面</a>
+
+</body>
+</html>

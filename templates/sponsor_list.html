@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>贊助者列表</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        .btn-edit, .btn-delete {
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+        }
+        .btn-edit {
+            background-color: #007BFF; /* 編輯按鈕顏色 */
+        }
+        .btn-edit:hover {
+            background-color: #0056b3; /* 編輯按鈕懸停顏色 */
+        }
+        .btn-delete {
+            background-color: #dc3545; /* 刪除按鈕顏色 */
+        }
+        .btn-delete:hover {
+            background-color: #c82333; /* 刪除按鈕懸停顏色 */
+        }
+    </style>
+</head>
+<body>
+
+<h2>贊助者列表</h2>
+
+<table>
+    <tr>
+        <th>圖片</th>
+        <th>姓名</th>
+        <th>FB連結</th>
+        <th>操作</th>
+    </tr>
+    {% for id, sponsor in sponsors.items() %}
+    <tr>
+        <td><img src="{{ url_for('static', filename='photos/' + sponsor.image) }}" alt="{{ sponsor.name }}" width="50"></td>
+        <td>{{ sponsor.name }}</td>
+        <td><a href="{{ sponsor.facebook_link }}" target="_blank">{{ sponsor.facebook_link }}</a></td>
+        <td>
+            <a href="{{ url_for('edit_sponsor', sponsor_id=id) }}" class="btn-edit">編輯</a>
+            <form action="{{ url_for('delete_sponsor', sponsor_id=id) }}" method="post" style="display:inline;">
+                <input type="submit" value="刪除" class="btn-delete">
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="/admin/add_sponsor">新增贊助者</a>
+
+</body>
+</html>

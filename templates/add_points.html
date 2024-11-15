@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增點數</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #f4f4f4; 
+            margin: 0; 
+            padding: 20px; 
+        }
+        h1 { 
+            color: #333; 
+            text-align: center; 
+        }
+        .navbar {
+            background-color: #007BFF;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+        .navbar a:hover {
+            background-color: #0056b3;
+        }
+        .container { 
+            max-width: 600px; 
+            margin: auto; 
+            padding: 20px; 
+            background: white; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+        }
+        input[type="text"], input[type="number"] {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: calc(100% - 22px);
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .suggestions { 
+            border: 1px solid #ddd; 
+            background-color: white; 
+            position: absolute; 
+            z-index: 1000; 
+            width: calc(100% - 22px); 
+        }
+        .suggestion-item { 
+            padding: 10px; 
+            cursor: pointer; 
+        }
+        .suggestion-item:hover { 
+            background-color: #f0f0f0; 
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<!-- 導航欄 -->
+<div class="navbar">
+    <a href="/">首頁</a>
+    <a href="/admin">管理介面</a>
+    <a href="/logout">登出</a> <!-- 登出選項 -->
+</div>
+
+<div class="container">
+    <h1>新增點數給會員</h1>
+    
+    <form method="post">
+        <label for="username">用戶名:</label>
+        <input type="text" id="username" name="username" required autocomplete="off">
+        
+        <div id="suggestions" class="suggestions"></div> <!-- 用於顯示建議的用戶 -->
+
+        <label for="points">_新增點數:</label>
+        <input type="number" name="points" required>
+        
+        <input type="submit" value="儲值">
+    </form>
+
+</div>
+
+<script>
+// 當用戶在輸入框中輸入時
+$(document).ready(function() {
+    $('#username').on('input', function() {
+        var prefix = $(this).val(); // 獲取當前輸入的值
+        if (prefix.length > 0) {
+            $.ajax({
+                url: '/search_users/' + prefix, // 發送請求到後端
+                method: 'GET',
+                success: function(data) {
+                    $('#suggestions').empty(); // 清空建議列表
+                    data.forEach(function(user) {
+                        $('#suggestions').append('<div class="suggestion-item">' + user + '</div>');
+                    });
+                }
+            });
+        } else {
+            $('#suggestions').empty(); // 清空建議列表
+        }
+    });
+
+    // 當點擊建議項目時，將其填入輸入框
+    $(document).on('click', '.suggestion-item', function() {
+        $('#username').val($(this).text()); // 將選中的用戶名填入輸入框
+        $('#suggestions').empty(); // 清空建議列表
+    });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>編輯商品</title>
+</head>
+<body>
+
+<h1>編輯商品</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <label for="name">商品名稱:</label>
+    <input type="text" name="name" value="{{ product.name }}" required><br>
+
+    <label for="price">價格:</label>
+    <input type="number" name="price" value="{{ product.price | int }}" required><br>
+
+    <label for="stock">庫存:</label> <!-- 新增庫存輸入框 -->
+    <input type="number" name="stock" value="{{ product.stock }}" required min="0><br>
+
+    <label for="sponsor">贊助者:</label> <!-- 新增贊助者輸入框 -->
+    <input type="text" name="sponsor" value="{{ product.sponsor if 'sponsor' in product else '' }}" placeholder="輸入贊助者名稱"><br>
+
+    <label for="photo">商品圖片:</label>
+    <input type="file" name="photo" accept="image/*"><br> <!-- 新增圖片上傳欄位 -->
+
+    <input type="submit" value="更新商品">
+</form>
+
+<a href="/admin">返回管理介面</a>
+
+</body>
+</html>

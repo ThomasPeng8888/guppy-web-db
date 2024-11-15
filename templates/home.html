@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首頁</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style> 
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #f4f4f4; 
+            margin: 0; 
+            padding: 0; 
+        } 
+        header { 
+            background-color: #007BFF; 
+            color: white; 
+            padding: 20px; 
+            text-align: left; 
+            display: flex; 
+            align-items: center; 
+        } 
+        .logo { 
+            height: 50px; 
+            margin-right: 20px; 
+        } /* 設置 logo 的高度和右邊距 */
+        nav { 
+            margin: 20px 0; 
+            text-align: center;
+        } 
+        nav a { 
+            margin: 0 15px; 
+            color: #007BFF; 
+            text-decoration: none; 
+            font-weight: bold; 
+        } 
+        nav a:hover { 
+            text-decoration: underline; 
+        } 
+
+        /* 下拉選單樣式 */
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover { background-color: #f1f1f1; }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        .container { 
+            max-width: 800px; 
+            margin: auto; 
+            padding: 20px; 
+            background: white; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+        } 
+
+        h1 { color: #333; } 
+
+        .cta-button { 
+            display: inline-block; 
+            padding: 10px 20px; 
+            background-color: #28a745; 
+            color: white; 
+            border-radius: 5px; 
+            text-decoration: none; 
+            font-weight: bold; 
+        } 
+
+        .cta-button:hover { background-color: #218838; } 
+
+        /* 響應式設計 */
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: center;
+            }
+            
+            nav {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                width: 100%;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #ddd;
+            }
+
+            nav a {
+                margin-bottom: 10px;
+                margin-right: 0;
+                width: auto;
+                padding-left :5%;
+                padding-right :5%;
+                box-shadow : none ;
+                border-radius :5%;
+                transition : all .2s ease-in-out ;
+                
+              }
+              nav a:hover {
+                  transform : scale(1.05) ;
+                  box-shadow : rgba(0,0,0,.2) -2px -2px ;
+              }
+
+              .container {
+                  padding-left :5%;
+                  padding-right :5%;
+              }
+          }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo"> <!-- 添加 logo -->
+    <h1>歡迎來到『瘋樂遊』</h1>
+</header>
+
+<div class="container">
+
+    <nav>
+        {% if 'username' in session %}
+            <span>您好，{{ session['username'] }}！</span>
+            {% if session.get('line_nickname') %}
+                <span>（LINE 暱稱：{{ session['line_nickname'] }}）</span> <!-- 顯示 LINE 暱稱 -->
+            {% endif %}
+            
+            <!-- 下拉選單 -->
+            <div class="dropdown">
+                <a href="#" class="dropbtn">遊戲區</a>
+                <div class="dropdown-content">
+                    <a href="/guess_number">猜數字遊戲</a>
+                    <a href="/predict_rank">預測名次遊戲</a>
+                </div>
+            </div>
+    
+            <a href="/member_center">會員中心</a>
+            <a href="/points_exchange">點數兌換區</a>
+            <a href="/sponsor_info">贊助者資訊</a> <!-- 新增贊助者資訊連結 -->
+            <a href="/leaderboard">排行榜</a> <!-- 新增排行榜連結 -->
+            
+            {% if session['username'] == 'admin' %}
+                <a href="/admin">管理介面</a> <!-- 僅當用戶為 admin 時顯示 -->
+            {% endif %}
+            
+            <a href="/logout">登出</a>
+        {% else %}
+            <a href="/register">註冊</a>
+            <a href="/login">登入</a>
+        {% endif %}
+    </nav>
+
+{% if 'username' not in session %}
+<p>在這裡，您可以輕鬆管理您的帳號，查看點數並進行兌換。請選擇上方的選項以開始使用。</p>
+<a class='cta-button' href='/register'>立即註冊</a>
+{% else %}
+<p>您已成功登入，可以訪問會員中心和點數兌換區。</p>
+{% endif %}
+
+</div>
+
+</body>
+</html>

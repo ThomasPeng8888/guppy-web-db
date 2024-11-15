@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品管理介面</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
+        h1 { color: #333; text-align: center; }
+        .navbar { background-color: #007BFF; padding: 10px; text-align: center; border-radius: 5px; margin-bottom: 20px; }
+        .navbar a { color: white; text-decoration: none; padding: 10px 15px; border-radius: 5px; margin: 0 10px; }
+        .navbar a:hover { background-color: #0056b3; }
+        .container { max-width: 1200px; margin: auto; text-align: center; }
+        .btn-edit { display: inline-block; padding: 10px 15px; background-color: #007BFF; color: white; border-radius: 5px; text-decoration: none; margin-top: 10px;}
+        .btn-edit:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/" class="btn-edit">返回首頁</a>
+    <a href="/logout" class="btn-edit">登出</a> <!-- 登出按鈕 -->
+</div>
+
+<h1>管理後台</h1>
+
+<!-- 將鏈接放在這裡 -->
+<div class="container">
+    <a href="/admin/add_product" class="btn-edit">新增商品</a>
+    <a href="/admin/products" class="btn-edit">修改商品</a>
+    <a href="/admin/add_points" class="btn-edit">新增點數</a>
+    <a href="/admin/deduct_points" class="btn-edit">扣除點數</a>
+    <a href="/admin/exchange_records" class="btn-edit">兌換紀錄</a>
+    <a href="/admin/user_records" class="btn-edit">會員記錄查詢</a>
+    <a href="/admin/game_setup" class="btn-edit">猜數字遊戲設定</a>
+    <a href="/admin/predict_rank_setup" class="btn-edit">預測名次遊戲設定</a> <!-- 新增設定預測名次遊戲的鏈接 -->
+    <a href="/admin/add_sponsor" class="btn-edit">新增贊助者</a>
+    <a href="/admin/sponsors" class="btn-edit">修改贊助者</a>
+    <a href="/admin/blacklist" class="btn-edit">會員凍結</a>
+</div>
+
+<!-- 可以在這裡添加其他內容，例如商品列表等 -->
+
+</body>
+</html>
