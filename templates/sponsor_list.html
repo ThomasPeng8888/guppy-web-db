@@ -59,14 +59,14 @@
         <th>FB連結</th>
         <th>操作</th>
     </tr>
-    {% for id, sponsor in sponsors.items() %}
+    {% for sponsor in sponsors %}
     <tr>
         <td><img src="{{ url_for('static', filename='photos/' + sponsor.image) }}" alt="{{ sponsor.name }}" width="50"></td>
         <td>{{ sponsor.name }}</td>
         <td><a href="{{ sponsor.facebook_link }}" target="_blank">{{ sponsor.facebook_link }}</a></td>
         <td>
-            <a href="{{ url_for('edit_sponsor', sponsor_id=id) }}" class="btn-edit">編輯</a>
-            <form action="{{ url_for('delete_sponsor', sponsor_id=id) }}" method="post" style="display:inline;">
+            <a href="{{ url_for('edit_sponsor', sponsor_id=sponsor.id) }}" class="btn-edit">編輯</a>
+            <form action="{{ url_for('delete_sponsor', sponsor_id=sponsor.id) }}" method="post" style="display:inline;">
                 <input type="submit" value="刪除" class="btn-delete">
             </form>
         </td>
@@ -75,6 +75,7 @@
 </table>
 
 <a href="/admin/add_sponsor">新增贊助者</a>
+<a href="/admin">返回管理介面</a>
 
 </body>
 </html>

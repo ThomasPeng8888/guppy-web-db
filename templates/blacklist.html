@@ -51,11 +51,11 @@
         <th>用戶名</th>
         <th>操作</th>
     </tr>
-    {% for username in blacklist %}
+    {% for user in blacklist %}
     <tr>
-        <td>{{ username }}</td>
+        <td>{{ user.username }}</td> <!-- 显示用户名 -->
         <td>
-            <form action="/admin/unblacklist/{{ username }}" method="post" style="display:inline;">
+            <form action="{{ url_for('unblacklist_user', username=user.username) }}" method="post" style="display:inline;">
                 <input type="submit" value="解凍結">
             </form>
         </td>

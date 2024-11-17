@@ -56,8 +56,6 @@
 </head>
 <body>
 
-
-
 <div class="navbar">
     <a href="/">返回首頁</a>
     <a href="/member_center">會員中心</a>
@@ -74,7 +72,7 @@
 <h1>贊助者資訊</h1>
 
 <div class="sponsor-list">
-    {% for sponsor in sponsors.values() %}
+    {% for sponsor in sponsors %}
     <div class="sponsor-card">
         <img src="{{ url_for('static', filename='photos/' + sponsor.image) }}" alt="{{ sponsor.name }}">
         <h3>{{ sponsor.name }}</h3>
@@ -82,7 +80,6 @@
     </div>
     {% endfor %}
 </div>
-
 
 </body>
 </html>

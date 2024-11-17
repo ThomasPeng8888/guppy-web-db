@@ -19,18 +19,18 @@
 
 <h2>商品列表</h2>
 <div class="product-list">
-    {% for id, product in products.items() %}
+    {% for product in products %}
     <div class="product-card">
-        <img src="{{ url_for('static', filename='photos/' + (product.image if 'image' in product else 'default.jpg')) }}" alt="{{ product.name }}">
+        <img src="{{ url_for('static', filename='photos/' + (product.image if product.image else 'default.jpg')) }}" alt="{{ product.name }}">
         <div class="product-info">
             <h3>{{ product.name }}</h3>
             <p>點數：{{ product.price | int }}</p> <!-- 使用 |int 過濾器 -->
-            <p>贊助者：{{ product.sponsor if 'sponsor' in product else '無' }}</p> <!-- 顯示贊助者 -->
+            <p>贊助者：{{ product.sponsor if product.sponsor else '無' }}</p> <!-- 顯示贊助者 -->
             <p>庫存：{{ product.stock }} 件</p> <!-- 顯示庫存數量 -->
             {% if product.stock <= 0 %}
                 <p class="out-of-stock">此商品已售罄</p> <!-- 庫存為0時的提示 -->
             {% endif %}
-            <a href="{{ url_for('edit_product', product_id=id) }}" class="btn-edit">編輯</a> <!-- 編輯按鈕 -->
+            <a href="{{ url_for('edit_product', product_id=product.id) }}" class="btn-edit">編輯</a> <!-- 編輯按鈕 -->
         </div>
     </div>
     {% endfor %}

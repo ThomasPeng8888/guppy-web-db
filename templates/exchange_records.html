@@ -20,6 +20,7 @@
 <thead>
 <tr>
 <th>會員名稱</th>
+<th>LINE社群暱稱</th>
 <th>商品名稱</th>
 <th>兌換時間</th>
 <th>扣除點數</th>
@@ -29,6 +30,7 @@
 {% for record in exchange_records %}
 <tr>
 <td>{{ record.username }}</td>
+<td>{{ record.line_nickname }}</td>
 <td>{{ record.item_name }}</td>
 <td>{{ record.exchange_time }}</td>
 <td>{{ record.cost | int }}</td> <!-- 使用 |int 過濾器來顯示整數 -->

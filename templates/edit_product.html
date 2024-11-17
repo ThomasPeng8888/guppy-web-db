@@ -17,10 +17,10 @@
     <input type="number" name="price" value="{{ product.price | int }}" required><br>
 
     <label for="stock">庫存:</label> <!-- 新增庫存輸入框 -->
-    <input type="number" name="stock" value="{{ product.stock }}" required min="0><br>
+    <input type="number" name="stock" value="{{ product.stock }}" required min="0"><br> <!-- 修正引號 -->
 
     <label for="sponsor">贊助者:</label> <!-- 新增贊助者輸入框 -->
-    <input type="text" name="sponsor" value="{{ product.sponsor if 'sponsor' in product else '' }}" placeholder="輸入贊助者名稱"><br>
+    <input type="text" name="sponsor" value="{{ product.sponsor if product.sponsor else '' }}" placeholder="輸入贊助者名稱"><br> <!-- 修改了贊助者的條件 -->
 
     <label for="photo">商品圖片:</label>
     <input type="file" name="photo" accept="image/*"><br> <!-- 新增圖片上傳欄位 -->
